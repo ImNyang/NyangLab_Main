@@ -29,7 +29,7 @@ class 정보(commands.Cog):
         member_count = g.member_count
         created_at = g.created_at
         region = g.region
-        invite = await g.invites()
+        #invite = await g.invites()
 
         embed = discord.Embed(title=f"{name}", description=f"{owner}가 만든 서버에서 {member_count}명의 맴버들과 함께하고 있어요!", color=0xd6ffdb)
         embed.set_thumbnail(url=f"{icon_url}")
