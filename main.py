@@ -53,4 +53,4 @@ async def on_message(message):
 
 
 
-bot.run('Token')
+bot.run(os.getenv('TOKEN'))
