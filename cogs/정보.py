@@ -16,7 +16,7 @@ class 정보(commands.Cog):
         g = ctx.guild
         name = g.name
         afk_voice = g.afk_channel
-        banner = g.banner_url
+        #banner = g.banner_url
         system_channel = g.system_channel
         bitrate_limit = g.bitrate_limit
         emoji_limit = g.emoji_limit 
@@ -33,19 +33,20 @@ class 정보(commands.Cog):
 
         embed = discord.Embed(title=f"{name}", description=f"{owner}가 만든 서버에서 {member_count}명의 맴버들과 함께하고 있어요!", color=0xd6ffdb, url=f"{invite}")
         embed.set_thumbnail(url=f"{icon_url}")
-        embed.add_field(name="----⚙️일반⚙️----", value="", inline=False)
+        embed.add_field(name="----⚙️일반⚙️----", value="ㅣ모든 서버들이 사용이 가능해요!ㅣ", inline=False)
         embed.add_field(name="🤿ㅣAFK 음성 채널", value=f"{afk_voice}", inline=True)
         embed.add_field(name="🗓ㅣ서버 생성일", value=f"{created_at}", inline=True)
         embed.add_field(name="🌏ㅣ서버 메인 언어", value=f"{region}", inline=True)
         embed.add_field(name="📥ㅣ디스코드 관리자 공지 채널", value=f"{system_channel}", inline=True)
-        embed.add_field(name="----💎부스트💎----", value="", inline=False)
+        embed.add_field(name="----💎부스트💎----", value="ㅣ부스트일 경우 더 많은 것들이 True로 되어 있어요!ㅣ", inline=False)
         embed.add_field(name="🏷ㅣ부스트 역할", value=f"{boost_role}", inline=True)
         embed.add_field(name="🌌ㅣ서버 아이콘 움직임", value=f"{is_icon_animated}", inline=True)
         embed.add_field(name="🖥ㅣ디스코드 초대 링크 배경화면", value=f"{invite_url_background}", inline=True)
-        embed.add_field(name="📃ㅣ서버 배너", value=f"{banner}", inline=True)
+        embed.add_field(name="📃ㅣ서버 배너", value=f"아직 사용 할 수 없어요!", inline=True)
         embed.add_field(name="🎤ㅣ서버 비트레이트 한계", value=f"{bitrate_limit}", inline=True)
         embed.add_field(name="😀ㅣ이모지 최대 갯수", value=f"{emoji_limit}", inline=True)
         embed.add_field(name="🗄ㅣ파일 최대 용량", value=f"{filesize_limit}", inline=True)
+        embed.set_footer(text=f"{name}", icon_url=f"{icon_url}")
 
         await ctx.send(embed=embed)
 
