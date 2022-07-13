@@ -16,7 +16,7 @@ class 정보(commands.Cog):
         g = ctx.guild
         name = g.name
         afk_voice = g.afk_channel
-        banner = g.banner_url
+        banner = g.banner
         system_channel = g.system_channel
         bitrate_limit = g.bitrate_limit
         emoji_limit = g.emoji_limit 
@@ -25,7 +25,7 @@ class 정보(commands.Cog):
         owner = g.owner
         icon_url = g.icon_url
         is_icon_animated = g.is_icon_animated()
-        invite_url_background = g.splash_url
+        invite_url_background = g.splash
         member_count = g.member_count
         created_at = g.created_at
         region = g.region
