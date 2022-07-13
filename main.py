@@ -53,4 +53,4 @@ async def on_message(message):
 
 
 
-bot.run('OTY4NDUxMTA5Njg3NTQ1OTE3.GbLqdm.a0drhq8VL0zZCDcr1cm-_kRCw_9cZJJpGW8Now')
+bot.run('Token')
