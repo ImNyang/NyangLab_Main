@@ -19,9 +19,9 @@ class 정보(commands.Cog):
         banner = g.banner
         system_channel = g.system_channel
         bitrate_limit = g.bitrate_limit
-        bitrate_limit = str(bitrate_limit)
-        bitrate_limit.strip("0")
-        bitrate_limit.strip(".")
+        bitrate_limit = bitrate_limit = str(bitrate_limit)
+        bitrate_limit = bitrate_limit.strip("0")
+        bitrate_limit = bitrate_limit.strip(".")
         emoji_limit = g.emoji_limit 
         filesize_limit = g.filesize_limit
         boost_role = g.premium_subscriber_role
@@ -34,12 +34,12 @@ class 정보(commands.Cog):
         region = g.region
         #invite = await g.invites()
 
-        embed = discord.Embed(title=f"{name}", description=f"{member_count}명의 맴버들과 함께하고 있어요! 이 머", color=0xd6ffdb)
+        embed = discord.Embed(title=f"{name}", description=f"{member_count}명의 맴버들과 함께하고 있어요! 이 멋진 봇과 함께요!", color=0xd6ffdb)
         embed.set_thumbnail(url=f"{icon_url}")
         embed.add_field(name="----⚙️일반⚙️----", value="ㅣ모든 서버들이 사용이 가능해요!ㅣ", inline=False)
         embed.add_field(name="🤿ㅣAFK 음성 채널", value=f"{afk_voice}", inline=True)
-        embed.add_field(name="🗓ㅣ서버 생성일", value=f"{created_at}", inline=True)
-        embed.add_field(name="🌏ㅣ서버 메인 언어", value=f"{region}", inline=True)
+        embed.add_field(name="🗓ㅣ서버 생성일 UTC", value=f"{created_at}", inline=True)
+        embed.add_field(name="🌏ㅣ서버 메인 언어", value=f"{region} (현재 제대로 표시되지 않습니다.)", inline=True)
         embed.add_field(name="📥ㅣ디스코드 관리자 공지 채널", value=f"{system_channel}", inline=True)
         embed.add_field(name="----💎부스트💎----", value="ㅣ부스트일 경우 더 많은 것들이 True로 되어 있어요!ㅣ", inline=False)
         embed.add_field(name="🏷ㅣ부스트 역할", value=f"{boost_role}", inline=True)
