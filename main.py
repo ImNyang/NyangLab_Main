@@ -5,6 +5,8 @@ import os
 import datetime
 import jishaku
 
+#sorry token
+
 # ":discord:743511195197374563" is a custom discord emoji format. Adjust to match your own custom emoji.
 menu = DefaultMenu(page_left="⬅️", page_right="➡️", remove="❌", active_time=30)
 
