@@ -21,6 +21,7 @@ class 정보(commands.Cog):
         bitrate_limit = g.bitrate_limit
         bitrate_limit = bitrate_limit = str(bitrate_limit)
         bitrate_limit = bitrate_limit.strip("0")
+        bitrate_limit = bitrate_limit.strip("000")
         bitrate_limit = bitrate_limit.strip(".")
         emoji_limit = g.emoji_limit 
         filesize_limit = g.filesize_limit
