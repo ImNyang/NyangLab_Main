@@ -22,9 +22,19 @@ for f in os.listdir("./cogs"):
 @bot.event
 async def on_ready():
     print('Logged in as')
-    print(bot.user.name) # 토큰으로 로그인 된 bot 객체에서 discord.User 클래스를 가져온 뒤 name 프로퍼티를 출력
-    print(bot.user.id) # 위와 같은 클래스에서 id 프로퍼티 출력
+    print(bot.user.name)
+    print(bot.user.id)
     print('------')
+    user = await bot.fetch_user("909353223901569035")
+    await user.send("✅ㅣ봇이 준비되었습니다!")
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
+
+@bot.event
+async def on_command_error(ctx, error):
+    embed=discord.Embed(title="Error!", description="어... 이게 무슨 상황인지 개발자에게 알려주세요!")
+    embed.add_field(name="오류 내용", value=f"`{str(error)}`", inline=True)
+    embed.set_footer(text="Dm : ImNyang#9009")
+    await ctx.send(embed=embed)
 
 badwords = ['discord.gg', 'discord.com/invites', 'https://aztra.xyz/invite/']
 
