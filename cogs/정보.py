@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+from googletrans import Translator
+translator = Translator()
 
 
 class 정보(commands.Cog):
@@ -9,17 +11,34 @@ class 정보(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['IT', 'event', '이벤트'], pass_context=True)
-    async def ITevent(self, ctx, what:str = "None"):
-        """IT Event를 알 수 있습니다. (수동 등록)"""
-        if what == "Nothing":
-            embed = discord.Embed(title="🎪ㅣNothing Event on", description="<t:1657638000:f> KST", url="https://youtu.be/XDcl6CYY7-A")
+    @commands.command()
+    async def Translaton(self,ctx,lang:str,text:str):
+        '''
+        번역을 합니다.
+        '''
+        if lang == "zh-cn" or lang == "중국어_간체":
+            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='zh-cn')}")
+            await ctx.reply(embed=embed)
+        elif lang == "zh-tw" or lang == "중국어 번체":
+            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='zh-tw')}")
+            await ctx.reply(embed=embed)
+        elif lang == "en" or lang == "영어":
+            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='en')}")
+            await ctx.reply(embed=embed)
+        elif lang == "fr" or lang == "프랑스어":
+            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='fr')}")
+            await ctx.reply(embed=embed)
+        elif lang == "ja" or lang == "일본어":
+            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='ja')}")
+            await ctx.reply(embed=embed)
+        elif lang == "ko" or lang == "한국어":
+            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='ko')}")
+            await ctx.reply(embed=embed)
+        elif lang == "uk" or lang == "우크라이나어":
+            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='uk')}")
             await ctx.reply(embed=embed)
         else:
-            embed = discord.Embed(title="알 수 없는 전자기기 이벤트", description="현재 있는 이벤트")
-            embed.add_field(name="`Nothing`", value="`Nothing Event`", inline=False)
-            await ctx.reply(embed=embed)
-    
+            await ctx.reply('지원하는 언어로 해주세요!', file=discord.File("translaton_lang.json"))
 
 def setup(bot):
     bot.add_cog(정보(bot))
