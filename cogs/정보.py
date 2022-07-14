@@ -1,8 +1,8 @@
+from ast import alias
+from re import A
 import discord
 from discord.ext import commands
-from googletrans import Translator
-translator = Translator()
-
+import requests
 
 class 정보(commands.Cog):
     '''
@@ -11,34 +11,28 @@ class 정보(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def Translaton(self,ctx,lang:str,text:str):
-        '''
-        번역을 합니다.
-        '''
-        if lang == "zh-cn" or lang == "중국어_간체":
-            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='zh-cn')}")
-            await ctx.reply(embed=embed)
-        elif lang == "zh-tw" or lang == "중국어 번체":
-            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='zh-tw')}")
-            await ctx.reply(embed=embed)
-        elif lang == "en" or lang == "영어":
-            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='en')}")
-            await ctx.reply(embed=embed)
-        elif lang == "fr" or lang == "프랑스어":
-            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='fr')}")
-            await ctx.reply(embed=embed)
-        elif lang == "ja" or lang == "일본어":
-            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='ja')}")
-            await ctx.reply(embed=embed)
-        elif lang == "ko" or lang == "한국어":
-            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='ko')}")
-            await ctx.reply(embed=embed)
-        elif lang == "uk" or lang == "우크라이나어":
-            embed = discord.Embed(title=f"Translaton {lang}", description=f"{translator.translate(text, dest='uk')}")
-            await ctx.reply(embed=embed)
-        else:
-            await ctx.reply('지원하는 언어로 해주세요!', file=discord.File("translaton_lang.json"))
+
+    @commands.command(aliases=['날씨'])
+    async def weather(self, ctx):
+        city = "Seoul" #도시
+        apiKey = "49d31840225c9cca36929d1e2d75b245"
+        lang = 'kr' #언어
+        units = 'metric' #화씨 온도를 섭씨 온도로 변경
+        api = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&lang={lang}&units={units}"
+
+        result = requests.get(api)
+
+        lon = result['coord']['lon']
+        lat = result['coord']['lat']
+        weather = result['weather'][0]['main']
+        temperature = result['main']['temp']
+        humidity = result['main']['humidity']
+
+        embed = discord.Embed(title="🌤ㅣ날씨", description="한국 서울 기준으로 날씨를 출력합니다.")
+        embed.add_field(name="🌐ㅣ경도 / 위도", value=f"{lon, ', ', lat}", inline=True)
+        embed.add_field(name="☀ㅣ날씨", value=f"{weather}", inline=True)
+        embed.add_field(name="🌡️ㅣ온도", value=f"{temperature}°C", inline=True)
+        embed.add_field(name="🌡️ㅣ습도", value=f"{humidity}", inline=True)
 
 def setup(bot):
     bot.add_cog(정보(bot))
