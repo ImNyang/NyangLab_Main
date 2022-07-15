@@ -31,6 +31,7 @@ class 정보(commands.Cog):
         embed.add_field(name="☀ㅣ날씨", value=f"{weather}", inline=True)
         embed.add_field(name="🌡️ㅣ온도", value=f"{temperature}°C", inline=True)
         embed.add_field(name="🌡️ㅣ습도", value=f"{humidity}", inline=True)
+        await ctx.send(embed=embed)
     
     @commands.command(aliases=['서버','서버정보','Guild'])
     async def GuildInfo(self, ctx):
