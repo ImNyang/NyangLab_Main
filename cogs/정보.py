@@ -18,13 +18,13 @@ class 정보(commands.Cog):
         units = 'metric' #화씨 온도를 섭씨 온도로 변경
         api = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={apiKey}&lang={lang}&units={units}"
 
-        result = requests.get(api)
+        data = requests.get(api)
 
-        lon = result['coord']['lon']
-        lat = result['coord']['lat']
-        weather = result['weather'][0]['main']
-        temperature = result['main']['temp']
-        humidity = result['main']['humidity']
+        lon = data['coord']['lon']
+        lat = data['coord']['lat']
+        weather = data['weather'][0]['main']
+        temperature = data['main']['temp']
+        humidity = data['main']['humidity']
 
         embed = discord.Embed(title="🌤ㅣ날씨", description="한국 서울 기준으로 날씨를 출력합니다.")
         embed.add_field(name="🌐ㅣ경도 / 위도", value=f"{lon, ', ', lat}", inline=True)
