@@ -69,6 +69,6 @@ async def on_message(message):
 async def chat(ctx, chat:str):
     str_text = (chat.split(" "))[1]
     return_data = await Ping.Pong(session_id ="Example", text = str_text, topic = True, image = True, dialog = True) # 핑퐁빌더 API에 Post 요청
-    await ctx.reply(return_data["text"])
+    await ctx.reply(str(return_data["text"]))
 
 bot.run(str(os.getenv('TOKEN')))
