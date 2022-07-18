@@ -4,6 +4,7 @@ from pretty_help import DefaultMenu, PrettyHelp
 import os
 import datetime
 import jishaku
+import PingPongWr
 
 # ":discord:743511195197374563" is a custom discord emoji format. Adjust to match your own custom emoji.
 menu = DefaultMenu(page_left="⬅️", page_right="➡️", remove="❌", active_time=30)
@@ -14,6 +15,11 @@ ending_note = "{ctx.bot.user.name}의 설명서 \n{help.clean_prefix}{help.invok
 bot = commands.Bot(command_prefix='..')
 bot.load_extension('jishaku')
 bot.help_command = PrettyHelp(menu=menu, ending_note=ending_note)
+
+url = str(os.getenv('PINGPONG_URL'))  # 핑퐁빌더 Custom API URL
+pingpong_token = str(os.getenv('PINGPONG_TOKEN'))  # 핑퐁빌더 Custom API Token
+
+Ping = PingPongWr.Connect(url, pingpong_token)  # 핑퐁 모듈 클래스 선언
 
 for f in os.listdir("./cogs"):
 	if f.endswith(".py"):
@@ -59,8 +65,10 @@ async def on_message(message):
          return # So that it doesn't try to delete the message again, which will cause an error.
     await bot.process_commands(message)
 
-    
-
-
+@bot.command(aliases=["대화"])
+async def chat(ctx, chat:str):
+    str_text = (chat.split(" "))[1]
+    return_data = await Ping.Pong(session_id ="Example", text = str_text, topic = True, image = True, dialog = True) # 핑퐁빌더 API에 Post 요청
+    await ctx.reply(return_data["text"])
 
 bot.run(str(os.getenv('TOKEN')))
