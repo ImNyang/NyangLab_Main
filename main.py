@@ -1,20 +1,17 @@
 import discord
 from discord.ext import commands
-from pretty_help import DefaultMenu, PrettyHelp
 import os
 import datetime
 import jishaku
-import PingPongWr
+import PingPongWr, random
 
 # ":discord:743511195197374563" is a custom discord emoji format. Adjust to match your own custom emoji.
-menu = DefaultMenu(page_left="⬅️", page_right="➡️", remove="❌", active_time=30)
 
 # Custom ending note
 ending_note = "{ctx.bot.user.name}의 설명서 \n{help.clean_prefix}{help.invoked_with}으로 도움말을 알 수 있어요!"
 
 bot = commands.Bot(command_prefix='..')
 bot.load_extension('jishaku')
-bot.help_command = PrettyHelp(menu=menu, ending_note=ending_note)
 
 url = str(os.getenv('PINGPONG_URL'))  # 핑퐁빌더 Custom API URL
 pingpong_token = str(os.getenv('PINGPONG_TOKEN'))  # 핑퐁빌더 Custom API Token
@@ -70,5 +67,21 @@ async def chat(ctx, chat:str):
     str_text = (chat.split(" "))[1]
     return_data = await Ping.Pong(session_id ="Example", text = str_text, topic = True, image = True, dialog = True) # 핑퐁빌더 API에 Post 요청
     await ctx.reply(str(return_data["text"]))
+
+@bot.slash_command(guild_ids=[993042304325664791])
+async def 안녕(ctx):
+    await ctx.respond(f"Hello! World! `Pong! {round(round(bot.latency, 4)*1000)}ms`")
+
+@bot.slash_command()
+async def 가위바위보(ctx, user: str):  # user:str로 !game 다음에 나오는 메시지를 받아줌
+    rps_table = ['가위', '바위', '보']
+    bot = random.choice(rps_table)
+    result = rps_table.index(user) - rps_table.index(bot)  # 인덱스 비교로 결과 결정
+    if result == 0:
+        await ctx.respond(f'{user} vs {bot}  비겼습니다.')
+    elif result == 1 or result == -2:
+        await ctx.respond(f'{user} vs {bot}  유저가 이겼습니다.')
+    else:
+        await ctx.respond(f'{user} vs {bot}  봇이 이겼습니다.')
 
 bot.run(str(os.getenv('TOKEN')))
