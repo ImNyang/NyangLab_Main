@@ -10,7 +10,7 @@ import PingPongWr, random
 # Custom ending note
 ending_note = "{ctx.bot.user.name}의 설명서 \n{help.clean_prefix}{help.invoked_with}으로 도움말을 알 수 있어요!"
 
-bot = commands.Bot(command_prefix='..')
+bot = discord.Bot(command_prefix='..')
 bot.load_extension('jishaku')
 
 url = str(os.getenv('PINGPONG_URL'))  # 핑퐁빌더 Custom API URL
