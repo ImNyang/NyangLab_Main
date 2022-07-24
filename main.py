@@ -65,6 +65,11 @@ async def on_message(message):
          return # So that it doesn't try to delete the message again, which will cause an error.
     await bot.process_commands(message)
 
+    if message.content.startswith("채팅"):
+        str_text = (message.content.split(" "))[1]
+        return_data = await Ping.Pong(session_id ="Example", text = str_text, topic = True, image = True, dialog = True) # 핑퐁빌더 API에 Post 요청
+        await message.channel.send(f"{message.author.mention}, {return_data["text"]}")
+
 @bot.command(aliases=["대화"])
 async def chat(ctx, chat:str):
     str_text = (chat.split(" "))[1]
