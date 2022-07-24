@@ -4,7 +4,8 @@ from pretty_help import DefaultMenu, PrettyHelp
 import os
 import datetime
 import jishaku
-import PingPongWr
+from PingPongTool import PingPong  # 핑퐁툴 모듈 임포트
+from random import randint
 
 # ":discord:743511195197374563" is a custom discord emoji format. Adjust to match your own custom emoji.
 menu = DefaultMenu(page_left="⬅️", page_right="➡️", remove="❌", active_time=30)
@@ -19,7 +20,7 @@ bot.help_command = PrettyHelp(menu=menu, ending_note=ending_note)
 url = str(os.getenv('PINGPONG_URL'))  # 핑퐁빌더 Custom API URL
 pingpong_token = str(os.getenv('PINGPONG_TOKEN'))  # 핑퐁빌더 Custom API Token
 
-Ping = PingPongWr.Connect(url, pingpong_token)  # 핑퐁 모듈 클래스 선언
+Ping = PingPong(url, pingpong_token)  # 핑퐁 모듈 클래스 선언
 
 for f in os.listdir("./cogs"):
 	if f.endswith(".py"):
@@ -65,15 +66,20 @@ async def on_message(message):
          return # So that it doesn't try to delete the message again, which will cause an error.
     await bot.process_commands(message)
 
-    if message.content.startswith("채팅"):
-        str_text = (message.content.split(" "))[1]
-        return_data = await Ping.Pong(session_id ="Example", text = str_text, topic = True, image = True, dialog = True) # 핑퐁빌더 API에 Post 요청
-        await message.channel.send(f"{message.author.mention}, {return_data["text"]}")
-
-@bot.command(aliases=["대화"])
-async def chat(ctx, chat:str):
-    str_text = (chat.split(" "))[1]
-    return_data = await Ping.Pong(session_id ="Example", text = str_text, topic = True, image = True, dialog = True) # 핑퐁빌더 API에 Post 요청
-    await ctx.reply(str(return_data["text"]))
+def RandomColor():
+    return randint(0, 0xFFFFFF)
+@bot.listen()
+async def on_command_error(ctx, error):
+    if type(error) is commands.errors.CommandNotFound:
+        data = await Ping.Pong(ctx.author.id, ctx.message.content, NoTopic=False)
+        embed = discord.Embed(
+            title="핑퐁",
+            description=data['text'],
+            color=RandomColor()
+        )
+        embed.set_footer(text="Using PingPongTool")
+        if data['image'] is not None:
+            embed.set_image(url=data['image'])
+        await ctx.send(embed=embed)
 
 bot.run(str(os.getenv('TOKEN')))
