@@ -36,7 +36,7 @@ async def on_ready():
     await user.send("✅ㅣ봇이 준비되었습니다!")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
 
-@bot.event()
+@bot.event
 async def on_member_update(before, after): 
     n = after.nick 
     if n: # Check if they updated their username
