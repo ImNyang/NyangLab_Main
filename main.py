@@ -37,15 +37,9 @@ async def on_ready():
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="냥 도움말"))
 
 @bot.event
-async def on_member_update(before, after): 
-    n = after.nick 
-    if n: # Check if they updated their username
-        if n.lower().count("뇽룡") > 0: # If username contains tim
-            last = before.nick
-            if last: # If they had a usernae before change it back to that
-                await after.edit(nick=last)
-            else: # Otherwise set it to "NO STOP THAT"
-                await after.edit(nick="메이드 뇽룡")
+async def on_member_update():
+    n = 535432063042715649
+    await n.edit(nick="메이드 뇽룡")
 
 badwords = ['discord.gg', 'discord.com/invites', 'https://aztra.xyz/invite/', 'youtube.com/c/']
 
