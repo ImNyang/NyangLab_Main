@@ -80,4 +80,4 @@ async def on_command_error(ctx, error):
             embed.set_image(url=data['image'])
         await ctx.send(embed=embed)
 
-bot.run(str(os.getenv('TOKEN')))
+bot.run(os.getenv('TOKEN'))
